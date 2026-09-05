@@ -48,7 +48,7 @@ when they disagree on more modules than `--max-divergent-modules` allows.
 - `mro.rs` - C3 linearization, so an inherited method resolves to the same definition CPython would pick
 
 **Pipeline orchestration**:
-- `runner.rs` - Shared pipeline orchestration used by `main.rs` and `commands/run_tree.rs`
+- `runner.rs` - Shared pipeline orchestration used by the analysis subcommands
 
 **AST traversal helpers**:
 - `cursor.rs` - Tracks current scope during AST traversal (module → class → function)
@@ -83,7 +83,7 @@ when they disagree on more modules than `--max-divergent-modules` allows.
 - `manual_override.rs` - Hardcoded list of functions declared safe (`SAFE_FUNCTIONS_ARRAY`)
 - `module_parser.rs` - Module parsing abstraction
 - `config.rs` - Analysis configuration (`AnalysisConfig`)
-- `hasher.rs` - Fixed-seed hashing, so the analyzer's many small maps produce deterministic output
+- `hasher.rs` - Fixed-seed hashing, avoiding per-map seed generation for the analyzer's many small maps
 - `tracing.rs` - Simple timing utility
 - `debug.rs` - Dump helpers for exports, import cycles, and the module imports map
 - `traits.rs` - Extension traits bridging lifeguard with pyrefly types
@@ -108,9 +108,9 @@ These are critical design decisions affecting correctness:
 
 - **Indexing imported objects**: Treated as SAFE (most don't override `__getitem__` unsafely)
 - **Recursive function calls**: Treated as UNSAFE (cannot determine termination)
-- **Unresolved function calls**: Treated as SAFE (most are builtins)
+- **Unresolved function calls**: Treated as UNSAFE when reached from eager code (reported as `UnknownFunctionCall`)
 - **`exec()` calls**: Module marked as UNSAFE and added to load_imports_eagerly set (differs from original analyzer)
-- **`sys.modules` access**: Module added to load_imports_eagerly set (subscript access and method calls depend on import ordering that lazy imports disrupts)
+- **`sys.modules` access**: Module added to load_imports_eagerly set (subscript access and method calls depend on import ordering that lazy imports disrupts). Some subscript reads are exempted; see [load_imports_eagerly.md](load_imports_eagerly.md).
 
 ### Output Structure
 
