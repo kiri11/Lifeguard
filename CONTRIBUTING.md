@@ -35,7 +35,16 @@ We follow the [Buck2 coding conventions](https://github.com/facebook/buck2/blob/
 
 ## Testing
 
-You can use `cargo test` to run the tests, or `python3 test.py` from this directory.
+Run `cargo test` from this directory. To match the GitHub CI checks, run:
+
+```bash
+cargo fmt -- --check
+cargo clippy --release
+cargo test --release
+cargo build --bin lifeguard --release
+```
+
+`test.py` is an internal script that depends on `arc` and `buck2`.
 
 Tests live in `tests/`, and the harness is `src/test_lib.rs`. Most tests are a
 `#[test]` function holding inline Python, where the expected results are written
