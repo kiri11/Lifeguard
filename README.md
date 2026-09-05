@@ -49,6 +49,7 @@ lifeguard run-tree /path/to/project output.json --verbose-output verbose.txt
 ```
 
 `python -m lifeguard_lazy_imports` is equivalent to the `lifeguard` command. The `cargo run --` examples below build and run the tool from source; with the installed package, replace `cargo run --` with `lifeguard`.
+PyPI releases are cut manually and can lag behind the main branch. Run `lifeguard --help` to see what your installed version supports.
 
 ## Prerequisites for Building from Source
 
