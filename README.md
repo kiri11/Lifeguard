@@ -40,7 +40,18 @@ Lifeguard is in active development. We are aiming to be ready for general use by
 - We are actively developing a standalone linter output mode to help users identify which specific lines in their codebase are incompatible with Lazy Imports.
 - We plan to add support for easy ingestion of Lifeguard's output to drive Lazy Imports enablement for advanced users (see [Using the Output](#using-the-output)).
 
-## Prerequisites
+## Install from PyPI
+
+Lifeguard is published on [PyPI](https://pypi.org/project/lifeguard-lazy-imports/) with prebuilt wheels for Linux, macOS, and Windows (x86-64 and ARM64). It requires Python 3.12 or newer and no Rust toolchain:
+
+```bash
+pip install lifeguard-lazy-imports
+lifeguard run-tree /path/to/project output.json --verbose-output verbose.txt
+```
+
+`python -m lifeguard_lazy_imports` is equivalent to the `lifeguard` command. The `cargo run --` examples below build and run the tool from source; with the installed package, replace `cargo run --` with `lifeguard`.
+
+## Prerequisites for Building from Source
 
 - **Rust (nightly)** — the crate uses unstable features. Install via [rustup](https://rustup.rs/) and set with `rustup default nightly`.
 - **Git** — clone with submodules: `git clone --recurse-submodules https://github.com/facebook/Lifeguard.git`

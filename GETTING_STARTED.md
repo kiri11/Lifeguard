@@ -2,9 +2,21 @@
 
 Lifeguard analyzes Python codebases to determine which modules can safely
 use lazy imports without triggering side effects at import time. This guide
-walks you through building and running the tool from source using Cargo.
+walks you through installing the tool from PyPI or building it from source.
 
-## Prerequisites
+## Install from PyPI
+
+```bash
+pip install lifeguard-lazy-imports
+lifeguard run-tree /path/to/project output.json --verbose-output verbose.txt
+```
+
+Wheels are available for Linux, macOS, and Windows on Python 3.12 or newer, so
+no Rust toolchain is needed. `python -m lifeguard_lazy_imports` is equivalent
+to the `lifeguard` command. In the Cargo examples below, substitute `lifeguard`
+for `cargo run --`; the bundled sample project is in the repository, not the package.
+
+## Prerequisites for Building from Source
 
 - **Rust (nightly)** — the crate uses unstable features, so you need a nightly
   toolchain. Install via [rustup](https://rustup.rs/) and set it with
